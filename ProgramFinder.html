@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Program Finder</title>
+
+
+    <style>
+      .programFinder__form{
+        background-color: lightgrey;
+        text-align: center;
+        margin: 100px auto;
+        padding: 40px;
+        width: 50%;
+      }
+
+      .programFinder__item {
+        display: none;
+      }
+
+      ._is_current {
+        display: block;
+      }
+
+      input[type="radio"] {
+        position: absolute;
+        z-index: -5;
+      }
+
+      .programFinder__btn {
+        position: relative;
+        margin: 20px;
+      }
+
+      button {
+        border: none;
+        border-radius: 0;
+        padding: 20px;
+        margin: 10px 30px;
+        font-size: 15px;
+        text-transform: uppercase;
+      }
+
+      .programFinder__btn label {
+        background: #FFF;
+        padding: 20px;
+        color: #FF485B;
+        display: block;
+        text-transform: uppercase;
+      }
+
+      input[type="radio"]:checked+label {
+        color: #FFF;
+        background: #FF485B;
+      }
+
+      .programFinder__dots span {
+        height: 15px;
+        width: 15px;
+        margin: 20px;
+        background-color: #bbbbbb;
+        border: none;
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+      .programFinder__dots span.active {
+        background-color: #FF485B;
+      }
+
+    </style>
+  </head>
+
+  <body>
+
+    <form class="programFinder__form" action="index.html" method="post">
+        <div class="programFinder__item _is_current">
+          <div class="programFinder__btn">
+            <input type="radio" name="full-time" id="full-time-yes" value="yes">
+            <label for="full-time-yes">Full Time</label>
+          </div>
+
+          <span class="btnConjunction">or</span>
+
+          <div class="programFinder__btn">
+            <input type="radio" name="full-time" id="full-time-no" value="no">
+            <label for="full-time-no">Part Time</label>
+          </div>
+        </div>
+
+        <div class="programFinder__item">
+          <div class="programFinder__btn">
+            <input type="radio" name="mba" id="mba-yes" value="yes">
+            <label for="mba-yes">MBA</label>
+          </div>
+
+          <span class="btnConjunction">or</span>
+
+          <div class="programFinder__btn">
+            <input type="radio" name="mba" id="mba-no" value="no">
+            <label for="mba-no">Non MBA</label>
+          </div>
+        </div>
+
+        <div class="programFinder__item">
+          <div class="programFinder__btn">
+            <input type="radio" name="durham" id="durham-yes" value="yes">
+            <label for="durham-yes">In Durham</label>
+          </div>
+
+          <span class="btnConjunction">or</span>
+
+          <div class="programFinder__btn">
+            <input type="radio" name="durham" id="durham-no" value="no">
+            <label for="durham-no">Outside of Durham</label>
+          </div>
+        </div>
+
+        <div class="programFinder__item">
+          <div class="programFinder__btn">
+            <input type="radio" name="years" id="years-yes" value="yes">
+            <label for="years-yes">One Year or More</label>
+          </div>
+
+          <span class="btnConjunction">or</span>
+
+          <div class="programFinder__btn">
+            <input type="radio" name="years" id="years-no" value="no">
+            <label for="years-no">Less Than A Year</label>
+          </div>
+        </div>
+
+        <div class="programFinder__btns">
+          <button name="prev" type="button">Previous</button>
+          <button name="next" type="button">Next</button>
+          <button name="reset" type="reset">Reset</button>
+        </div>
+
+        <div class="programFinder__dots">
+          <span class="active"></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </form>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script type="text/javascript">
+
+
+    // Program Finder
+      var data = {
+        "dialog": {
+          "initial": "What type of program are you looking for?",
+          "success": "Your program is: ",
+          "fail": "Your query didn't return any programs"
+        },
+        "programs": [{
+            "id": 1,
+            "program": "Daytime MBA",
+            "full-time": "yes",
+            "mba": "yes",
+            "years": "yes",
+            "durham": "yes"
+          }, {
+            "id": 2,
+            "program": "Cross Continent MBA",
+            "full-time": "no",
+            "mba": "yes",
+            "years": "yes",
+            "durham": "no"
+          }, {
+            "id": 3,
+            "program": "Global Executive MBA",
+            "full-time": "yes",
+            "mba": "yes",
+            "years": "yes",
+            "durham": "no"
+          }, {
+            "id": 4,
+            "program": "Weekend Executive MBA",
+            "full-time": "no",
+            "mba": "yes",
+            "years": "yes",
+            "durham": "no"
+          }, {
+            "id": 5,
+            "program": "MMS: Foundations of Business",
+            "full-time": "yes",
+            "mba": "no",
+            "years": "no",
+            "durham": "yes"
+          }, {
+            "id": 6,
+            "program": "MMS: Duke Kunshan University",
+            "full-time": "yes",
+            "mba": "no",
+            "years": "no",
+            "durham": "no"
+          }, {
+            "id": 7,
+            "program": "Master of Quantitantive Management",
+            "full-time": "yes",
+            "mba": "no",
+            "years": "no",
+            "durham": "yes"
+          }, {
+            "id": 8,
+            "program": "Executive Education",
+            "full-time": "no",
+            "mba": "no",
+            "years": "no",
+            "durham": "yes"
+          }, {
+            "id": 9,
+            "program": "PhD Program",
+            "full-time": "yes",
+            "mba": "no",
+            "years": "no",
+            "durham": "yes"
+          }]
+        };
+
+      // Finder Logic
+      $('form').prepend(`<h1>${data.dialog.initial}</h1>`);
+
+      function programFinder(){
+          var answers =[],
+              results = [],
+              dataArr;
+
+          // Store answers
+          $('.programFinder__item').each(function() {
+            var input = $(this).find('input:checked').val();
+            answers.push(input)
+          });
+
+          // Compare answers with data and store results in new array
+          $(data.programs).each(function(i) {
+            dataArr = $.map(data.programs[i], function(val) {
+              return val;
+            })
+
+            if(answers.toString() == dataArr.slice(2).toString()){
+              results.push(this.program);
+            }
+          });
+
+          // Print results or failure to page
+            if(results.length > 0){
+              $('form').append(`<section class="programFinder__results">${data.dialog.success} ${results.join(", ")}</section>`);
+            } else {
+              $('form').append(`<section class="programFinder__results">${data.dialog.fail}</section>`);
+            }
+          };
+
+
+      // Finder UI
+        $('button[name=prev], button[name=reset]').hide();
+
+        $('button[name=next]').click(function() {
+          $('button[name=prev]').show();
+
+          $('.programFinder__dots span').filter('.active').next('.programFinder__dots span').addClass('active');
+
+          var steps = $('.programFinder__item');
+
+          var next = steps.filter('._is_current').removeClass('_is_current').next('.programFinder__item');
+          next.addClass('_is_current');
+
+          if (!next.length) {
+            programFinder();
+            $('button[name=prev], button[name=next], .programFinder__dots').hide();
+            $('button[name=reset]').show();
+          }
+        });
+
+        $('button[name=prev]').click(function() {
+          $('.programFinder__dots span').filter('.active:last').removeClass('active');
+
+          var steps = $('.programFinder__item');
+
+          var next = steps.filter('._is_current').removeClass('_is_current').prev('.programFinder__item');
+          next.addClass('_is_current');
+
+          if($(steps[0]).hasClass('_is_current')) {
+            $('button[name=prev]').hide();
+          };
+        });
+
+        $('button[name=reset]').click(function() {
+          var steps = $('.programFinder__item');
+          var dots = $('.programFinder__dots span');
+
+          $(dots).removeClass('active');
+          $(dots[0]).addClass('active');
+
+          $(steps).removeClass('_is_current');
+          $(steps[0]).addClass('_is_current');
+
+          $('.programFinder__results, button[name=reset]').hide();
+          $('button[name=prev], button[name=next], .programFinder__dots').show();
+        });
+
+    </script>
+
+  </body>
+</html>
